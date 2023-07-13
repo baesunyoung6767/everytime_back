@@ -16,16 +16,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, length = 50, unique = true)
+    @Column(nullable = false, unique = true)
     private String userId;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String userPwd;
 
     @Column(nullable = false)
     private String userUniv;
 
-    @Column(nullable = false, length = 50, unique = true)
+    @Column(nullable = false, unique = true)
     private String userEmail;
 
     @Enumerated(EnumType.STRING)
