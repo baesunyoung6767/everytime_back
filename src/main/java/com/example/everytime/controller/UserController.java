@@ -10,13 +10,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/user")
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
@@ -29,17 +26,16 @@ public class UserController {
         User savedUser = userService.saveUser(user);
     }
 
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @PostMapping("/login")
-//    public Response<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
-//        String token = userService.login(loginRequestDto.getUserId(), loginRequestDto.getPassword());
-//        return Response.success(new LoginResponseDto(token));
-//    }
-
-    // postman 설치하고 아래 코드는 삭제하고, 주석처리된 코드 다시 테스트해봐야 할 듯
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/login")
-    public void login(@RequestBody LoginRequestDto loginRequestDto) {
+    public Response<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
         String token = userService.login(loginRequestDto.getUserId(), loginRequestDto.getPassword());
+        return Response.success(new LoginResponseDto(token));
     }
+
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @PostMapping("/login")
+//    public void login(@RequestBody LoginRequestDto loginRequestDto) {
+//        String token = userService.login(loginRequestDto.getUserId(), loginRequestDto.getPassword());
+//    }
 }

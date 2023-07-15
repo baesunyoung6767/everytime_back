@@ -7,7 +7,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
 
 public class JwtTokenUtil {
-    private static long expiredTimeMs = 1000* 60 * 60;
+    private static long expiredTimeMs = 1000 * 60 * 60; //1시간
 
     public static String createToken(String userId, String key) {
         Claims claims = Jwts.claims();
@@ -17,7 +17,7 @@ public class JwtTokenUtil {
                 .setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiredTimeMs))
-                .signWith(SignatureAlgorithm.HS256, key) // 키 암호화
+                .signWith(SignatureAlgorithm.HS256, key)
                 .compact();
     }
 }
