@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +20,7 @@ public class UserServiceTest {
     UserService userService;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    BCryptPasswordEncoder encoder;
 
     public User createUser() {
         UserDto userDto = new UserDto();
@@ -27,7 +28,7 @@ public class UserServiceTest {
         userDto.setUserEmail("tjsdudqo1234@naver.com");
         userDto.setUserUniv("동의대학교");
         userDto.setUserPwd("qotjsdud67");
-        return User.createUser(userDto, passwordEncoder);
+        return User.createUser(userDto, encoder);
     }
 
     @Test

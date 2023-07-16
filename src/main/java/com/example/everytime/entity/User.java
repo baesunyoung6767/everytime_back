@@ -3,6 +3,7 @@ package com.example.everytime.entity;
 import com.example.everytime.DTO.UserDto;
 import com.example.everytime.constant.Role;
 import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -31,12 +32,12 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public static User createUser(UserDto userDto, PasswordEncoder passwordEncoder) {
+    public static User createUser(UserDto userDto, BCryptPasswordEncoder encoder) {
         User user = new User();
         user.setUserId(userDto.getUserId());
         user.setUserEmail(userDto.getUserEmail());
         user.setUserUniv(userDto.getUserUniv());
-        String password = passwordEncoder.encode(userDto.getUserPwd());
+        String password = encoder.encode(userDto.getUserPwd());
         user.setUserPwd(password);
         user.setRole(Role.USER);
         return user;
