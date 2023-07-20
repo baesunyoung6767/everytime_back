@@ -1,5 +1,6 @@
-package com.example.everytime.constant;
+package com.example.everytime.exception;
 
+import com.example.everytime.exception.AppException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

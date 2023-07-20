@@ -1,7 +1,7 @@
 package com.example.everytime.service;
 
-import com.example.everytime.constant.AppException;
-import com.example.everytime.constant.ErrorCode;
+import com.example.everytime.exception.AppException;
+import com.example.everytime.exception.ErrorCode;
 import com.example.everytime.constant.JwtTokenUtil;
 import com.example.everytime.entity.User;
 import com.example.everytime.repository.UserRepository;

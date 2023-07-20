@@ -1,4 +1,4 @@
-package com.example.everytime.constant;
+package com.example.everytime.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

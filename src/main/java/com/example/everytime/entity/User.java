@@ -4,7 +4,6 @@ import com.example.everytime.DTO.UserDto;
 import com.example.everytime.constant.Role;
 import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
@@ -14,9 +13,6 @@ import javax.persistence.*;
 @ToString
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
     @Column(nullable = false, unique = true)
     private String userId;
 
