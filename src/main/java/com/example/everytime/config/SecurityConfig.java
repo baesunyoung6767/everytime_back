@@ -31,7 +31,7 @@ public class SecurityConfig {
                 .cors().and()
                 .authorizeRequests()
                 .antMatchers("user/register", "user/login").permitAll()
-                .antMatchers(HttpMethod.POST, "user/**").authenticated()
+                .antMatchers("/..").authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
