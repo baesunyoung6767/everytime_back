@@ -8,14 +8,10 @@ import com.example.everytime.entity.User;
 import com.example.everytime.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.token.Token;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
+import java.security.Principal;
 
 @RequestMapping("/user")
 @RestController
@@ -39,5 +35,9 @@ public class UserController {
         return Response.success(new LoginResponseDto(token));
     }
 
-
+    @GetMapping("/info")
+    public User currentUser(Principal principal) {
+        String login_user = principal.getName(); // 로그인된 유저 아이디를 반환
+        return userService.getUserByUserId(login_user);
+    }
 }
