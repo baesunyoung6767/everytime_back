@@ -2,6 +2,7 @@ package com.example.everytime.controller;
 
 import com.example.everytime.DTO.LoginRequestDto;
 import com.example.everytime.DTO.LoginResponseDto;
+import com.example.everytime.DTO.UpdateUserDto;
 import com.example.everytime.DTO.UserDto;
 import com.example.everytime.constant.Response;
 import com.example.everytime.entity.User;
@@ -39,5 +40,11 @@ public class UserController {
     public User currentUser(Principal principal) {
         String login_user = principal.getName(); // 로그인된 유저 아이디를 반환
         return userService.getUserByUserId(login_user);
+    }
+
+    @PatchMapping("/update")
+    public void updateUser(@RequestBody UpdateUserDto updateUserDto, Principal principal) {
+        String login_user = principal.getName();
+        User updateUser = userService.updateUserInfo(login_user, updateUserDto);
     }
 }

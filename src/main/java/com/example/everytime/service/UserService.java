@@ -1,5 +1,6 @@
 package com.example.everytime.service;
 
+import com.example.everytime.DTO.UpdateUserDto;
 import com.example.everytime.exception.AppException;
 import com.example.everytime.exception.ErrorCode;
 import com.example.everytime.constant.JwtTokenUtil;
@@ -53,5 +54,12 @@ public class UserService {
             throw new AppException(ErrorCode.USER_NOT_FOUND); // 아이디를 찾을 수 없다
         }
         return user;
+    }
+
+    @Transactional
+    public User updateUserInfo(String userId, UpdateUserDto updateUserDto) {
+        User user = getUserByUserId(userId);
+        User updateUser = User.updateUser(user, updateUserDto);
+        return userRepository.save(updateUser);
     }
 }

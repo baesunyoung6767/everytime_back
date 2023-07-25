@@ -1,5 +1,6 @@
 package com.example.everytime.entity;
 
+import com.example.everytime.DTO.UpdateUserDto;
 import com.example.everytime.DTO.UserDto;
 import com.example.everytime.constant.Role;
 import lombok.*;
@@ -36,6 +37,12 @@ public class User {
         String password = encoder.encode(userDto.getUserPwd());
         user.setUserPwd(password);
         user.setRole(Role.USER);
+        return user;
+    }
+
+    public static User updateUser(User user, UpdateUserDto updateUserDto) {
+        user.setUserUniv(updateUserDto.getUserUniv());
+        user.setUserEmail(updateUserDto.getUserEmail());
         return user;
     }
 }
