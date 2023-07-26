@@ -1,9 +1,6 @@
 package com.example.everytime.controller;
 
-import com.example.everytime.DTO.LoginRequestDto;
-import com.example.everytime.DTO.LoginResponseDto;
-import com.example.everytime.DTO.UpdateUserDto;
-import com.example.everytime.DTO.UserDto;
+import com.example.everytime.DTO.*;
 import com.example.everytime.constant.Response;
 import com.example.everytime.entity.User;
 import com.example.everytime.service.UserService;
@@ -46,5 +43,11 @@ public class UserController {
     public void updateUser(@RequestBody UpdateUserDto updateUserDto, Principal principal) {
         String login_user = principal.getName();
         User updateUser = userService.updateUserInfo(login_user, updateUserDto);
+    }
+
+    @PatchMapping("/password")
+    public void updatePwd(@RequestBody UpdatePwdDto updatePwdDto, Principal principal) {
+        String login_user = principal.getName();
+        User updatePwd = userService.updatePwd(login_user, updatePwdDto);
     }
 }

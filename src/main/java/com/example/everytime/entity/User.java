@@ -1,5 +1,6 @@
 package com.example.everytime.entity;
 
+import com.example.everytime.DTO.UpdatePwdDto;
 import com.example.everytime.DTO.UpdateUserDto;
 import com.example.everytime.DTO.UserDto;
 import com.example.everytime.constant.Role;
@@ -43,6 +44,12 @@ public class User {
     public static User updateUser(User user, UpdateUserDto updateUserDto) {
         user.setUserUniv(updateUserDto.getUserUniv());
         user.setUserEmail(updateUserDto.getUserEmail());
+        return user;
+    }
+
+    public static User updatePwd(User user, UpdatePwdDto updatePwdDto, BCryptPasswordEncoder encoder) {
+        String newPassword =  encoder.encode(updatePwdDto.getNewPassword());
+        user.setUserPwd(newPassword);
         return user;
     }
 }

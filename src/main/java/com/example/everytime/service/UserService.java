@@ -1,5 +1,6 @@
 package com.example.everytime.service;
 
+import com.example.everytime.DTO.UpdatePwdDto;
 import com.example.everytime.DTO.UpdateUserDto;
 import com.example.everytime.exception.AppException;
 import com.example.everytime.exception.ErrorCode;
@@ -61,5 +62,12 @@ public class UserService {
         User user = getUserByUserId(userId);
         User updateUser = User.updateUser(user, updateUserDto);
         return userRepository.save(updateUser);
+    }
+
+    @Transactional
+    public User updatePwd(String userId, UpdatePwdDto updatePwdDto) {
+        User user = getUserByUserId(userId);
+        User updatePwd = User.updatePwd(user, updatePwdDto, encoder);
+        return userRepository.save(updatePwd);
     }
 }
