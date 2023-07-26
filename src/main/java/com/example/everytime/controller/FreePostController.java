@@ -1,6 +1,7 @@
 package com.example.everytime.controller;
 
 import com.example.everytime.DTO.FreePostDto;
+import com.example.everytime.DTO.UpdateFreeDto;
 import com.example.everytime.entity.FreePost;
 import com.example.everytime.service.FreePostService;
 import com.example.everytime.service.UserService;
@@ -20,5 +21,11 @@ public class FreePostController {
     public void freePostSaved(@RequestBody FreePostDto freePostDto) {
         FreePost freePost = FreePost.createFreePost(freePostDto, userService.getUserByUserId(freePostDto.getFreeUser()));
         FreePost savedFreePost = freePostService.saveFreePost(freePost);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PatchMapping("/{post_id}")
+    public void freePostUpdate(@PathVariable int post_id, @RequestBody UpdateFreeDto updateFreeDto) {
+        FreePost updateFreePost = freePostService.updateFreePost(post_id, updateFreeDto);
     }
 }

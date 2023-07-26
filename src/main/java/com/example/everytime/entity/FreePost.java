@@ -1,6 +1,7 @@
 package com.example.everytime.entity;
 
 import com.example.everytime.DTO.FreePostDto;
+import com.example.everytime.DTO.UpdateFreeDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -36,6 +37,12 @@ public class FreePost{
         freePost.setUser(user);
         freePost.setFreeTitle(freePostDto.getFreeTitle());
         freePost.setFreeDate(LocalDateTime.now());
+        return freePost;
+    }
+
+    public static FreePost updateFreePost(FreePost freePost, UpdateFreeDto updateFreeDto) {
+        freePost.setFreeTitle(updateFreeDto.getFreeTitle());
+        freePost.setFreeContent(updateFreeDto.getFreeContent());
         return freePost;
     }
 }
