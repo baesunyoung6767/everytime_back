@@ -1,5 +1,6 @@
 package com.example.everytime.service;
 
+import com.example.everytime.DTO.UpdatePwdDto;
 import com.example.everytime.DTO.UserDto;
 import com.example.everytime.entity.User;
 import org.junit.jupiter.api.Assertions;
@@ -31,12 +32,40 @@ public class UserServiceTest {
         return User.createUser(userDto, encoder);
     }
 
+    public UpdatePwdDto updatePwd() {
+        UpdatePwdDto updatePwdDto = new UpdatePwdDto();
+        updatePwdDto.setNewPassword("tjsdudqo1234");
+        return updatePwdDto;
+    }
+
     @Test
     @DisplayName("회원가입 테스트")
     public void saveUserTest() {
         User user = createUser();
         User savedUser = userService.saveUser(user);
 
-        Assertions.assertEquals(user.getId(), savedUser.getId());
+        Assertions.assertEquals(user.getUserId(), savedUser.getUserId());
+    }
+
+    @Test
+    @DisplayName("회원 정보 출력 테스트")
+    public void selectUserTest() {
+        User user = createUser();
+        User savedUser = userService.saveUser(user);
+        User loginUser = userService.getUserByUserId(savedUser.getUserId());
+
+        Assertions.assertEquals(loginUser.getUserId(), savedUser.getUserId());
+    }
+
+    @Test
+    @DisplayName("비밀번호 변경")
+    public void changePwd() {
+        User user = createUser();
+        User savedUser = userService.saveUser(user);
+
+        UpdatePwdDto updatePwdDto = updatePwd();
+        User newPwdUser = userService.updatePwd(savedUser.getUserId(),updatePwdDto);
+
+        org.assertj.core.api.Assertions.assertThat(encoder.matches(updatePwdDto.getNewPassword(), newPwdUser.getUserPwd())).isTrue();
     }
 }
