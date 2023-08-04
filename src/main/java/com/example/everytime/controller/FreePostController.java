@@ -28,4 +28,10 @@ public class FreePostController {
     public void freePostUpdate(@PathVariable int post_id, @RequestBody UpdateFreeDto updateFreeDto) {
         FreePost updateFreePost = freePostService.updateFreePost(post_id, updateFreeDto);
     }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @DeleteMapping("/{post_id}")
+    public void freePostDelete(@PathVariable int post_id) {
+        freePostService.deleteFreePost(post_id);
+    }
 }
