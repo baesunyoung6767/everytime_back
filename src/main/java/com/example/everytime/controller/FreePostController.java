@@ -34,4 +34,10 @@ public class FreePostController {
     public void freePostDelete(@PathVariable int post_id) {
         freePostService.deleteFreePost(post_id);
     }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @GetMapping("/{post_id}")
+    public FreePost getFreePost(@PathVariable int post_id) {
+        return freePostService.getPostByFreeId(post_id);
+    }
 }

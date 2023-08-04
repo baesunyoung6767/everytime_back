@@ -2,6 +2,7 @@ package com.example.everytime.service;
 
 import com.example.everytime.DTO.UpdateFreeDto;
 import com.example.everytime.entity.FreePost;
+import com.example.everytime.entity.User;
 import com.example.everytime.exception.AppException;
 import com.example.everytime.exception.ErrorCode;
 import com.example.everytime.repository.FreePostRepository;
@@ -32,5 +33,13 @@ public class FreePostService {
     @Transactional
     public void deleteFreePost(int freeId) {
         freePostRepository.deleteById(freeId);
+    }
+
+    public FreePost getPostByFreeId(int freeId) {
+        FreePost freePost = freePostRepository.findByFreeId(freeId);
+        if(freePost == null) {
+            throw new AppException(ErrorCode.USER_NOT_FOUND); // 아이디를 찾을 수 없다
+        }
+        return freePost;
     }
 }
