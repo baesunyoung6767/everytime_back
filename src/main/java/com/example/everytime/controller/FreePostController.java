@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping("/free_post")
 @RestController
 @RequiredArgsConstructor
@@ -39,5 +41,11 @@ public class FreePostController {
     @GetMapping("/{post_id}")
     public FreePost getFreePost(@PathVariable int post_id) {
         return freePostService.getPostByFreeId(post_id);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @GetMapping("/")
+    public List<FreePost> getFreePostList() {
+        return freePostService.getFreePostList();
     }
 }

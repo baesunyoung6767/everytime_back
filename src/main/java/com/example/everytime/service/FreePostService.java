@@ -11,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -41,5 +44,9 @@ public class FreePostService {
             throw new AppException(ErrorCode.USER_NOT_FOUND); // 아이디를 찾을 수 없다
         }
         return freePost;
+    }
+
+    public List<FreePost> getFreePostList() {
+        return freePostRepository.findAll();
     }
 }
