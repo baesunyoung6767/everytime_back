@@ -49,4 +49,8 @@ public class FreePostService {
     public List<FreePost> getFreePostList() {
         return freePostRepository.findAll();
     }
+
+    public List<FreePost> getFreePostTitle(String freeTitle) {
+        return freePostRepository.findByFreeTitleContaining(freeTitle);
+    }
 }

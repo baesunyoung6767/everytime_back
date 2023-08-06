@@ -3,10 +3,9 @@ package com.example.everytime.repository;
 import com.example.everytime.entity.FreePost;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface FreePostRepository extends JpaRepository<FreePost, Integer> {
-    // 제목으로 게시글 찾는 거 코드 추가할 것
-
     FreePost findByFreeId(int freeId);
-
-
+    List<FreePost> findByFreeTitleContaining(String freeTitle);
 }

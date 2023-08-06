@@ -6,11 +6,15 @@ import com.example.everytime.entity.FreePost;
 import com.example.everytime.service.FreePostService;
 import com.example.everytime.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 
+@Slf4j
 @RequestMapping("/free_post")
 @RestController
 @RequiredArgsConstructor
@@ -47,5 +51,12 @@ public class FreePostController {
     @GetMapping("/")
     public List<FreePost> getFreePostList() {
         return freePostService.getFreePostList();
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @GetMapping("/search/{search_keyword}")
+    public List<FreePost> getFreePostTitle(@PathVariable String search_keyword) throws UnsupportedEncodingException {
+        String decodedParam = URLDecoder.decode(search_keyword, "UTF-8");
+        return freePostService.getFreePostTitle(decodedParam);
     }
 }
