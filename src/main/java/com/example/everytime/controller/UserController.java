@@ -33,21 +33,26 @@ public class UserController {
         return Response.success(new LoginResponseDto(token));
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @GetMapping("/info")
     public User currentUser(Principal principal) {
         String login_user = principal.getName(); // 로그인된 유저 아이디를 반환
         return userService.getUserByUserId(login_user);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PatchMapping("/update")
-    public void updateUser(@RequestBody UpdateUserDto updateUserDto, Principal principal) {
+    public Response<User> updateUser(@RequestBody UpdateUserDto updateUserDto, Principal principal) {
         String login_user = principal.getName();
         User updateUser = userService.updateUserInfo(login_user, updateUserDto);
+        return Response.success(updateUser);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PatchMapping("/password")
-    public void updatePwd(@RequestBody UpdatePwdDto updatePwdDto, Principal principal) {
+    public Response<User> updatePwd(@RequestBody UpdatePwdDto updatePwdDto, Principal principal) {
         String login_user = principal.getName();
         User updatePwd = userService.updatePwd(login_user, updatePwdDto);
+        return Response.success(updatePwd);
     }
 }
