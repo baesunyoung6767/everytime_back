@@ -11,6 +11,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @SpringBootTest
 @Transactional
@@ -51,5 +52,37 @@ public class FreePostServiceTest {
         FreePost updatedFreePost = freePostService.updateFreePost(savedFreePost.getFreeId(), updateFreeDto);
 
         Assertions.assertEquals(updatedFreePost.getFreeTitle(), updateFreeDto.getFreeTitle());
+    }
+
+    @Test
+    @DisplayName("자유게시판 게시글 삭제 테스트")
+    public void deleteFreePost() {
+        FreePost newFreePost = createFreePost();
+        FreePost savedFreePost = freePostService.saveFreePost(newFreePost);
+        freePostService.deleteFreePost(savedFreePost.getFreeId());
+    }
+
+    @Test
+    @DisplayName("자유게시판 게시글 상세 조회 테스트")
+    public void selectFreePost() {
+        FreePost newFreePost = createFreePost();
+        FreePost savedFreePost = freePostService.saveFreePost(newFreePost);
+
+        FreePost findFreePost = freePostService.getPostByFreeId(savedFreePost.getFreeId());
+
+        Assertions.assertEquals(findFreePost.getFreeTitle(), savedFreePost.getFreeTitle());
+        Assertions.assertEquals(findFreePost.getFreeContent(), savedFreePost.getFreeContent());
+    }
+
+    @Test
+    @DisplayName("자유게시판 게시글 제목 검색 테스트")
+    public void findTitleFreePost() {
+        FreePost newFreePost = createFreePost();
+        FreePost savedFreePost = freePostService.saveFreePost(newFreePost);
+
+        List<FreePost> findFreePost = freePostService.getFreePostTitle("안녕");
+
+        Assertions.assertEquals(findFreePost.get(0).getFreeTitle(), savedFreePost.getFreeTitle());
+        Assertions.assertEquals(findFreePost.get(0).getFreeContent(), savedFreePost.getFreeContent());
     }
 }
