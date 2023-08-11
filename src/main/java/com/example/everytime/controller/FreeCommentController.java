@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping("/free_post")
 @RestController
 @RequiredArgsConstructor
@@ -30,5 +32,11 @@ public class FreeCommentController {
         FreeComment freeComment = FreeComment.createFreeCmd(freeCommentDto, user, freePost);
 
         freeCommentService.savedFreeComment(freeComment);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @GetMapping("/comment")
+    public List<FreeComment> freeCommentList() {
+        return freeCommentService.freeCommentList();
     }
 }
