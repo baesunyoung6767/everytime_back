@@ -1,5 +1,7 @@
 package com.example.everytime.service;
 
+import com.example.everytime.DTO.FreeCommentDto;
+import com.example.everytime.DTO.UpdateFreeCommentDto;
 import com.example.everytime.entity.FreeComment;
 import com.example.everytime.entity.FreePost;
 import com.example.everytime.repository.FreeCommentRepository;
@@ -20,5 +22,19 @@ public class FreeCommentService {
         return freeCommentRepository.save(freeComment);
     }
 
-    public List<FreeComment> freeCommentList() {return freeCommentRepository.findAll();}
+    public List<FreeComment> freeCommentList(FreePost findFreePost) {
+        return freeCommentRepository.findByFreeId(findFreePost);
+    }
+
+    @Transactional
+    public void deletedFreeComment(int freeCommentId) {
+        freeCommentRepository.deleteById(freeCommentId);
+    }
+
+    @Transactional
+    public FreeComment updatedFreeComment(int freeCmtId, UpdateFreeCommentDto updateFreeCommentDto) {
+        FreeComment findFreeComment = freeCommentRepository.findByFreeCmd(freeCmtId);
+        FreeComment updateFreeComment = FreeComment.updateFreeCmd(findFreeComment, updateFreeCommentDto);
+        return updateFreeComment;
+    }
 }

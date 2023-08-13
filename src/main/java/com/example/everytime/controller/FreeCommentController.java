@@ -1,6 +1,7 @@
 package com.example.everytime.controller;
 
 import com.example.everytime.DTO.FreeCommentDto;
+import com.example.everytime.DTO.UpdateFreeCommentDto;
 import com.example.everytime.entity.FreeComment;
 import com.example.everytime.entity.FreePost;
 import com.example.everytime.entity.User;
@@ -35,8 +36,21 @@ public class FreeCommentController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @GetMapping("/comment")
-    public List<FreeComment> freeCommentList() {
-        return freeCommentService.freeCommentList();
+    @GetMapping("/{free_id}/comment")
+    public List<FreeComment> freeCommentList(@PathVariable int free_id) {
+        FreePost findFreePost = freePostService.getPostByFreeId(free_id);
+        return freeCommentService.freeCommentList(findFreePost);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @DeleteMapping("/comment/{comment_id}")
+    public void deleteFreeComment( @PathVariable int comment_id) {
+        freeCommentService.deletedFreeComment(comment_id);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PatchMapping("/comment/{comment_id}")
+    public FreeComment updateFreeComment(@PathVariable int comment_id, @RequestBody UpdateFreeCommentDto updateFreeCommentDto) {
+        return freeCommentService.updatedFreeComment(comment_id, updateFreeCommentDto);
     }
 }

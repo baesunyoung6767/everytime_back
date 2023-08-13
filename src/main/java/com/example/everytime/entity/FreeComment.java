@@ -1,6 +1,7 @@
 package com.example.everytime.entity;
 
 import com.example.everytime.DTO.FreeCommentDto;
+import com.example.everytime.DTO.UpdateFreeCommentDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -38,6 +39,11 @@ public class FreeComment {
         freeComment.setFreeCmdContent(freeCommentDto.getFreeCmdContent());
         freeComment.setFreeCmdDate(LocalDateTime.now());
 
+        return freeComment;
+    }
+
+    public static FreeComment updateFreeCmd(FreeComment freeComment, UpdateFreeCommentDto updateFreeCommentDto) {
+        freeComment.setFreeCmdContent(updateFreeCommentDto.getUpdateContent());
         return freeComment;
     }
 }
