@@ -8,6 +8,9 @@ import com.example.everytime.exception.ErrorCode;
 import com.example.everytime.repository.FreePostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,6 +49,13 @@ public class FreePostService {
         return freePost;
     }
 
+    // 페이징 추가
+    public Page<FreePost> getPageList(int page) {
+        Pageable pageable = PageRequest.of(page, 10); // 조회할 페이지 번호(0부터 시작), 한 페이지에 보여줄 최대 개수
+        return this.freePostRepository.findAll(pageable);
+    }
+
+    // 페이지 없이 전체 게시글 리스트 조회
     public List<FreePost> getFreePostList() {
         return freePostRepository.findAll();
     }

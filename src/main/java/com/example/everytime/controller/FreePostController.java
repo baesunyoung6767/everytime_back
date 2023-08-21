@@ -7,6 +7,8 @@ import com.example.everytime.service.FreePostService;
 import com.example.everytime.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,15 +44,16 @@ public class FreePostController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @GetMapping("/{post_id}")
+    @GetMapping("/detail/{post_id}")
     public FreePost getFreePost(@PathVariable int post_id) {
         return freePostService.getPostByFreeId(post_id);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @GetMapping("/")
-    public List<FreePost> getFreePostList() {
-        return freePostService.getFreePostList();
+    @GetMapping("/{page}")
+    public Page<FreePost> getFreePostList(@PathVariable int page) {
+        Page<FreePost> paging = freePostService.getPageList(page);
+        return paging;
     }
 
     @ResponseStatus(HttpStatus.CREATED)
