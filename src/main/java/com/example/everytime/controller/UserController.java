@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 
 @RequestMapping("/user")
@@ -21,9 +22,10 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/register")
-    public void userRegister(@RequestBody UserDto userDto) {
+    public String userRegister(@Valid @RequestBody UserDto userDto) {
         User user = User.createUser(userDto, encoder);
         User savedUser = userService.saveUser(user);
+        return "회원가입이 성공적으로 완료되었습니다.";
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -35,24 +37,25 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @GetMapping("/info")
-    public User currentUser(Principal principal) {
+    public Response<UserInfoResponseDto> currentUser(Principal principal) {
         String login_user = principal.getName(); // 로그인된 유저 아이디를 반환
-        return userService.getUserByUserId(login_user);
+        User userInfo =  userService.getUserByUserId(login_user);
+        return Response.success(new UserInfoResponseDto(userInfo.getUserId(), userInfo.getUserUniv(), userInfo.getUserEmail()));
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PatchMapping("/update")
-    public Response<User> updateUser(@RequestBody UpdateUserDto updateUserDto, Principal principal) {
+    public Response<UserUpdateResponseDto> updateUser(@RequestBody UpdateUserDto updateUserDto, Principal principal) {
         String login_user = principal.getName();
         User updateUser = userService.updateUserInfo(login_user, updateUserDto);
-        return Response.success(updateUser);
+        return Response.success(new UserUpdateResponseDto(updateUser.getUserUniv(), updateUser.getUserEmail()));
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PatchMapping("/password")
-    public Response<User> updatePwd(@RequestBody UpdatePwdDto updatePwdDto, Principal principal) {
+    public String updatePwd(@RequestBody UpdatePwdDto updatePwdDto, Principal principal) {
         String login_user = principal.getName();
         User updatePwd = userService.updatePwd(login_user, updatePwdDto);
-        return Response.success(updatePwd);
+        return "비밀번호가 성공적으로 변경되었습니다.";
     }
 }
