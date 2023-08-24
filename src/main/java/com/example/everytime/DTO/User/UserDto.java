@@ -1,4 +1,4 @@
-package com.example.everytime.DTO;
+package com.example.everytime.DTO.User;
 
 import lombok.*;
 import org.hibernate.validator.constraints.Length;

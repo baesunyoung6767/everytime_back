@@ -1,7 +1,7 @@
 package com.example.everytime.service;
 
-import com.example.everytime.DTO.UpdatePwdDto;
-import com.example.everytime.DTO.UpdateUserDto;
+import com.example.everytime.DTO.User.UpdatePwdDto;
+import com.example.everytime.DTO.User.UpdateUserDto;
 import com.example.everytime.exception.AppException;
 import com.example.everytime.exception.ErrorCode;
 import com.example.everytime.constant.JwtTokenUtil;

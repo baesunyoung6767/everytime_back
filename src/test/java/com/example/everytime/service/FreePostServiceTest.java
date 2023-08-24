@@ -1,6 +1,6 @@
 package com.example.everytime.service;
 
-import com.example.everytime.DTO.UpdateFreeDto;
+import com.example.everytime.DTO.FreePost.UpdateFreeDto;
 import com.example.everytime.entity.FreePost;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

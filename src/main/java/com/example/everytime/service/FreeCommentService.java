@@ -1,7 +1,6 @@
 package com.example.everytime.service;
 
-import com.example.everytime.DTO.FreeCommentDto;
-import com.example.everytime.DTO.UpdateFreeCommentDto;
+import com.example.everytime.DTO.FreePost.UpdateFreeCommentDto;
 import com.example.everytime.entity.FreeComment;
 import com.example.everytime.entity.FreePost;
 import com.example.everytime.repository.FreeCommentRepository;

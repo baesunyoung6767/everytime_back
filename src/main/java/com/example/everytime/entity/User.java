@@ -1,8 +1,8 @@
 package com.example.everytime.entity;
 
-import com.example.everytime.DTO.UpdatePwdDto;
-import com.example.everytime.DTO.UpdateUserDto;
-import com.example.everytime.DTO.UserDto;
+import com.example.everytime.DTO.User.UpdatePwdDto;
+import com.example.everytime.DTO.User.UpdateUserDto;
+import com.example.everytime.DTO.User.UserDto;
 import com.example.everytime.constant.Role;
 import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

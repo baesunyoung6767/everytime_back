@@ -1,11 +1,10 @@
 package com.example.everytime.controller;
 
-import com.example.everytime.DTO.FreeCommentDto;
-import com.example.everytime.DTO.UpdateFreeCommentDto;
+import com.example.everytime.DTO.FreePost.FreeCommentDto;
+import com.example.everytime.DTO.FreePost.UpdateFreeCommentDto;
 import com.example.everytime.entity.FreeComment;
 import com.example.everytime.entity.FreePost;
 import com.example.everytime.entity.User;
-import com.example.everytime.repository.FreeCommentRepository;
 import com.example.everytime.service.FreeCommentService;
 import com.example.everytime.service.FreePostService;
 import com.example.everytime.service.UserService;

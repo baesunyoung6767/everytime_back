@@ -1,7 +1,7 @@
 package com.example.everytime.entity;
 
-import com.example.everytime.DTO.FreePostDto;
-import com.example.everytime.DTO.UpdateFreeDto;
+import com.example.everytime.DTO.FreePost.FreePostDto;
+import com.example.everytime.DTO.FreePost.UpdateFreeDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

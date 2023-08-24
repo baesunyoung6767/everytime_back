@@ -1,18 +1,12 @@
 package com.example.everytime.service;
 
-import com.example.everytime.DTO.FreeCommentDto;
-import com.example.everytime.DTO.UpdateFreeCommentDto;
-import com.example.everytime.DTO.UpdateFreeDto;
-import com.example.everytime.DTO.UserDto;
+import com.example.everytime.DTO.FreePost.UpdateFreeCommentDto;
 import com.example.everytime.entity.FreeComment;
-import com.example.everytime.entity.FreePost;
-import com.example.everytime.entity.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 

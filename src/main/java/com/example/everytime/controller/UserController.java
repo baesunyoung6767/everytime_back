@@ -1,6 +1,6 @@
 package com.example.everytime.controller;
 
-import com.example.everytime.DTO.*;
+import com.example.everytime.DTO.User.*;
 import com.example.everytime.constant.Response;
 import com.example.everytime.entity.User;
 import com.example.everytime.service.UserService;

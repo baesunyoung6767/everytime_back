@@ -1,8 +1,7 @@
 package com.example.everytime.service;
 
-import com.example.everytime.DTO.UpdateFreeDto;
+import com.example.everytime.DTO.FreePost.UpdateFreeDto;
 import com.example.everytime.entity.FreePost;
-import com.example.everytime.entity.User;
 import com.example.everytime.exception.AppException;
 import com.example.everytime.exception.ErrorCode;
 import com.example.everytime.repository.FreePostRepository;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

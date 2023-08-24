@@ -1,4 +1,4 @@
-package com.example.everytime.DTO;
+package com.example.everytime.DTO.FreePost;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

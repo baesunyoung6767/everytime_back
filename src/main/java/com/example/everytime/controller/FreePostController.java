@@ -1,6 +1,6 @@
 package com.example.everytime.controller;
 
-import com.example.everytime.DTO.*;
+import com.example.everytime.DTO.FreePost.*;
 import com.example.everytime.constant.Response;
 import com.example.everytime.entity.FreePost;
 import com.example.everytime.service.FreePostService;
@@ -8,7 +8,6 @@ import com.example.everytime.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
