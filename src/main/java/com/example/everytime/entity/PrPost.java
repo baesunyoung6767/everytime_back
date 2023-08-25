@@ -1,6 +1,7 @@
 package com.example.everytime.entity;
 
 import com.example.everytime.DTO.PrPost.PrPostDto;
+import com.example.everytime.DTO.PrPost.PrUpdateRequestDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -38,5 +39,11 @@ public class PrPost {
         newPrPost.setPrContent(prPostDto.getPrContent());
         newPrPost.setPrDate(LocalDateTime.now());
         return newPrPost;
+    }
+
+    public static PrPost updatePrPost(PrPost prPost, PrUpdateRequestDto prUpdateRequestDto) {
+        prPost.setPrTitle(prUpdateRequestDto.getTitle());
+        prPost.setPrContent(prUpdateRequestDto.getContent());
+        return prPost;
     }
 }

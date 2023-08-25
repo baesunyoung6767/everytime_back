@@ -1,5 +1,7 @@
 package com.example.everytime.service;
 
+import com.example.everytime.DTO.PrPost.PrUpdateRequestDto;
+import com.example.everytime.DTO.PrPost.PrUpdateResponseDto;
 import com.example.everytime.entity.PrPost;
 import com.example.everytime.repository.PrPostRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,5 +25,12 @@ public class PrPostService {
     public Page<PrPost> getPageList(int page) {
         Pageable pageable = PageRequest.of(page, 10);
         return prPostRepository.findAll(pageable);
+    }
+
+    @Transactional
+    public PrPost updatePrPost(int updateId, PrUpdateRequestDto prUpdateRequestDto) {
+        PrPost foundPost = prPostRepository.getReferenceById(updateId);
+        PrPost updatedPost = PrPost.updatePrPost(foundPost, prUpdateRequestDto);
+        return prPostRepository.save(updatedPost);
     }
 }

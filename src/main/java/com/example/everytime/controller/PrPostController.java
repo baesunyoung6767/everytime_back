@@ -2,6 +2,8 @@ package com.example.everytime.controller;
 
 import com.example.everytime.DTO.PrPost.PrPostDto;
 import com.example.everytime.DTO.PrPost.PrSaveResponseDto;
+import com.example.everytime.DTO.PrPost.PrUpdateRequestDto;
+import com.example.everytime.DTO.PrPost.PrUpdateResponseDto;
 import com.example.everytime.constant.Response;
 import com.example.everytime.entity.PrPost;
 import com.example.everytime.service.PrPostService;
@@ -33,5 +35,12 @@ public class PrPostController {
     @GetMapping("/{page}")
     public Page<PrPost> prPostList(@PathVariable int page) {
         return prPostService.getPageList(page);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PatchMapping("/{post_id}")
+    public Response<PrUpdateResponseDto> prPostUpdate(@PathVariable int post_id, @RequestBody PrUpdateRequestDto prUpdateRequestDto) {
+        PrPost prPost = prPostService.updatePrPost(post_id, prUpdateRequestDto);
+        return Response.success(new PrUpdateResponseDto(prPost.getPrId(), prPost.getPrTitle(), prPost.getPrContent()));
     }
 }
