@@ -33,4 +33,18 @@ public class PrPostService {
         PrPost updatedPost = PrPost.updatePrPost(foundPost, prUpdateRequestDto);
         return prPostRepository.save(updatedPost);
     }
+
+    @Transactional
+    public void deletePrPost(int deleteId) {
+        prPostRepository.deleteById(deleteId);
+    }
+
+    public PrPost getPrPost(int postId) {
+        return prPostRepository.findByPrId(postId);
+    }
+
+    public Page<PrPost> searchPageList(String searchKeyword, int page) {
+        Pageable pageable = PageRequest.of(page, 10);
+        return prPostRepository.findByPrTitleContaining(pageable, searchKeyword);
+    }
 }

@@ -8,4 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface PrPostRepository extends JpaRepository<PrPost, Integer> {
     @Override
     Page<PrPost> findAll(Pageable pageable);
+    PrPost findByPrId(int prId);
+
+    Page<PrPost> findByPrTitleContaining(Pageable pageable, String postTitle);
 }
