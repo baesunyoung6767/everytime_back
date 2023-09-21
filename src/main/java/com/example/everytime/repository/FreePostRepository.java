@@ -11,4 +11,5 @@ public interface FreePostRepository extends JpaRepository<FreePost, Integer> {
     FreePost findByFreeId(int freeId);
     List<FreePost> findByFreeTitleContaining(String freeTitle);
     Page<FreePost> findAll(Pageable pageable);
+
 }
