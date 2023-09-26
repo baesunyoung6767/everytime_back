@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,15 +16,13 @@ import java.util.List;
 @Component
 public class FileHandler {
 
-    public List<FreeImage> parseFileInfo(FreePost freePost, List<MultipartFile> multipartFiles) throws Exception {
+    public List<FreeImage> parseFileInfo(FreePost freePost,  List<MultipartFile> multipartFiles) throws Exception {
         List<FreeImage> imageList = new ArrayList<>();
 
         if(multipartFiles.isEmpty()) return imageList;
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         String current_date = simpleDateFormat.format(new Date());
-
-//        if(multipartFiles.isEmpty()) return imageList;
 
         String absolutePath = new File("").getAbsolutePath() + "\\";
         String path = "images/" + current_date;
@@ -49,6 +48,7 @@ public class FileHandler {
                         .originalFileName(multipartFile.getOriginalFilename())
                         .storedFileName(path + "/" + new_file_name)
                         .fileSize(multipartFile.getSize())
+                        .freeDate(LocalDateTime.now())
                         .build();
                 imageList.add(freeImage);
 

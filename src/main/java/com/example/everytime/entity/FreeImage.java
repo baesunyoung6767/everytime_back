@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -30,7 +32,7 @@ public class FreeImage {
     @Column(nullable = false)
     private String storedFileName;
 
-    @Column
+    @Column(nullable = false)
     private long fileSize;
 
     @Column

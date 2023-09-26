@@ -24,7 +24,7 @@ public class FreeImageController {
     @PostMapping("/{post_id}/image")
     public ResponseEntity<?> createFreeImage(@PathVariable int post_id, @Validated @RequestParam("files") List<MultipartFile> files) throws Exception {
         FreePost freePost = freePostService.getPostByFreeId(post_id);
-        freeImageService.savedFreeImage(freePost, FreeImage.builder().build(), files);
+        freeImageService.savedFreeImage(freePost, files);
         return ResponseEntity.ok().build();
     }
 }
