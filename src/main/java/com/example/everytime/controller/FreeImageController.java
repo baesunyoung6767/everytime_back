@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@RequestMapping("/free_post")
+@RequestMapping("/free-post")
 @RestController
 @RequiredArgsConstructor
 public class FreeImageController {

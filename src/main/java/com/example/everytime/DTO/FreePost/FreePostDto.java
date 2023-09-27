@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 
 @Getter @Setter
 public class FreePostDto {
-    private String freeUser;
     private String freeTitle;
     private String freeContent;
 }

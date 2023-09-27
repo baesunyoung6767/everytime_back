@@ -42,7 +42,7 @@ public class FreePostService {
     public FreePost getPostByFreeId(int freeId) {
         FreePost freePost = freePostRepository.findByFreeId(freeId);
         if(freePost == null) {
-            throw new AppException(ErrorCode.USER_NOT_FOUND); // 아이디를 찾을 수 없다
+            throw new AppException(ErrorCode.FREE_NOT_FOUND); // 아이디를 찾을 수 없다
         }
         return freePost;
     }

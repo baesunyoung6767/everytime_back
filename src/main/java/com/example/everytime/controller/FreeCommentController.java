@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/free_post")
+@RequestMapping("/free-post")
 @RestController
 @RequiredArgsConstructor
 @Slf4j

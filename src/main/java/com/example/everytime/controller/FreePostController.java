@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.security.Principal;
 import java.util.List;
 
 @Slf4j
-@RequestMapping("/free_post")
+@RequestMapping("/free-post")
 @RestController
 @RequiredArgsConstructor
 public class FreePostController {
@@ -25,8 +26,9 @@ public class FreePostController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
-    public Response<FreeSaveResponseDto> freePostSaved(@RequestBody FreePostDto freePostDto) {
-        FreePost freePost = FreePost.createFreePost(freePostDto, userService.getUserByUserId(freePostDto.getFreeUser()));
+    public Response<FreeSaveResponseDto> freePostSaved(@RequestBody FreePostDto freePostDto, Principal principal) {
+        String loginUser = principal.getName();
+        FreePost freePost = FreePost.createFreePost(freePostDto, userService.getUserByUserId(loginUser));
         FreePost savedFreePost = freePostService.saveFreePost(freePost);
         return Response.success(new FreeSaveResponseDto(savedFreePost.getFreeId()));
     }

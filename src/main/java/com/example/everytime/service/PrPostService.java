@@ -3,6 +3,8 @@ package com.example.everytime.service;
 import com.example.everytime.DTO.PrPost.PrUpdateRequestDto;
 import com.example.everytime.DTO.PrPost.PrUpdateResponseDto;
 import com.example.everytime.entity.PrPost;
+import com.example.everytime.exception.AppException;
+import com.example.everytime.exception.ErrorCode;
 import com.example.everytime.repository.PrPostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -40,7 +42,9 @@ public class PrPostService {
     }
 
     public PrPost getPrPost(int postId) {
-        return prPostRepository.findByPrId(postId);
+        PrPost foundPost = prPostRepository.findByPrId(postId);
+        if(foundPost == null) throw new AppException(ErrorCode.PR_NOT_FOUND);
+        return foundPost;
     }
 
     public Page<PrPost> searchPageList(String searchKeyword, int page) {

@@ -6,6 +6,7 @@ import com.example.everytime.entity.PrPost;
 import com.example.everytime.service.PrPostService;
 import com.example.everytime.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +16,9 @@ import java.net.URLDecoder;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/pr_post")
+@RequestMapping("/pr-post")
 @RequiredArgsConstructor
+@Slf4j
 public class PrPostController {
     private final PrPostService prPostService;
     private final UserService userService;
@@ -27,6 +29,7 @@ public class PrPostController {
         String loginUser = principal.getName();
         PrPost post = PrPost.createPrPost(prPostDto, userService.getUserByUserId(loginUser));
         PrPost savePost = prPostService.savedPrPost(post);
+        log.info("게시글이 생성되었습니다. prId : " + savePost.getPrId());
         return Response.success(new PrSaveResponseDto(savePost.getPrId()));
     }
 
@@ -40,6 +43,7 @@ public class PrPostController {
     @PatchMapping("/{post_id}")
     public Response<PrUpdateResponseDto> prPostUpdate(@PathVariable int post_id, @RequestBody PrUpdateRequestDto prUpdateRequestDto) {
         PrPost prPost = prPostService.updatePrPost(post_id, prUpdateRequestDto);
+        log.info("게시글이 수정되었습니다. prId : " + prPost.getPrId());
         return Response.success(new PrUpdateResponseDto(prPost.getPrId(), prPost.getPrTitle(), prPost.getPrContent()));
     }
 
@@ -47,6 +51,7 @@ public class PrPostController {
     @DeleteMapping("/{post_id}")
     public Response<PrDelResponseDto> prPostDelete(@PathVariable int post_id) {
         prPostService.deletePrPost(post_id);
+        log.info("게시글이 삭제되었습니다. prId : " + post_id);
         return Response.success(new PrDelResponseDto(post_id));
     }
 

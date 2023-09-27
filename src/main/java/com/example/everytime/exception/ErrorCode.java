@@ -8,9 +8,10 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum ErrorCode {
     DUPLICATED_USER_ID(HttpStatus.CONFLICT, "user id is duplicated"),
-    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "not found error"),
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "user not found error"),
     INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "bad Request"),
-    FREE_NOT_FOUND(HttpStatus.NOT_FOUND, "not found error");
+    FREE_NOT_FOUND(HttpStatus.NOT_FOUND, "free post not found error"),
+    PR_NOT_FOUND(HttpStatus.NOT_FOUND, "pr post not found error");
 
     private HttpStatus httpStatus;
     private String message;
