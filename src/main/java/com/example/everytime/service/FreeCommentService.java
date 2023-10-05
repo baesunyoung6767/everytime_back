@@ -5,6 +5,9 @@ import com.example.everytime.entity.FreeComment;
 import com.example.everytime.entity.FreePost;
 import com.example.everytime.repository.FreeCommentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +24,9 @@ public class FreeCommentService {
         return freeCommentRepository.save(freeComment);
     }
 
-    public List<FreeComment> freeCommentList(FreePost findFreePost) {
-        return freeCommentRepository.findByFreeId(findFreePost);
+    public Page<FreeComment>  freeCommentList(FreePost findFreePost, int page) {
+        Pageable pageable = PageRequest.of(page, 10);
+        return this.freeCommentRepository.findByFreeId(findFreePost, pageable);
     }
 
     @Transactional

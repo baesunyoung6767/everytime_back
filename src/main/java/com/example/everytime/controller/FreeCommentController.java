@@ -1,7 +1,9 @@
 package com.example.everytime.controller;
 
+import com.example.everytime.DTO.FreePost.FreeCmtResponseDto;
 import com.example.everytime.DTO.FreePost.FreeCommentDto;
 import com.example.everytime.DTO.FreePost.UpdateFreeCommentDto;
+import com.example.everytime.constant.Response;
 import com.example.everytime.entity.FreeComment;
 import com.example.everytime.entity.FreePost;
 import com.example.everytime.entity.User;
@@ -10,6 +12,7 @@ import com.example.everytime.service.FreePostService;
 import com.example.everytime.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,19 +29,21 @@ public class FreeCommentController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/comment")
-    public void freeCommentSaved(@RequestBody FreeCommentDto freeCommentDto) {
+    public Response<FreeCmtResponseDto> freeCommentSaved(@RequestBody FreeCommentDto freeCommentDto) {
         User user = userService.getUserByUserId(freeCommentDto.getFreeCmdUser());
         FreePost freePost = freePostService.getPostByFreeId(freeCommentDto.getFreeId());
         FreeComment freeComment = FreeComment.createFreeCmd(freeCommentDto, user, freePost);
 
-        freeCommentService.savedFreeComment(freeComment);
+        FreeComment savedComment = freeCommentService.savedFreeComment(freeComment);
+
+        return Response.success(new FreeCmtResponseDto(savedComment.getFreeCmd(), freePost.getFreeId()));
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @GetMapping("/{free_id}/comment")
-    public List<FreeComment> freeCommentList(@PathVariable int free_id) {
-        FreePost findFreePost = freePostService.getPostByFreeId(free_id);
-        return freeCommentService.freeCommentList(findFreePost);
+    @GetMapping("/{post_id}/comment/{page}")
+    public Page<FreeComment> freeCommentList(@PathVariable int post_id, @PathVariable int page) {
+        FreePost findFreePost = freePostService.getPostByFreeId(post_id);
+        return freeCommentService.freeCommentList(findFreePost, page);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
