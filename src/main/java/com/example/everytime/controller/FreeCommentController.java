@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RequestMapping("/free-post")
@@ -29,8 +30,9 @@ public class FreeCommentController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/comment")
-    public Response<FreeCmtResponseDto> freeCommentSaved(@RequestBody FreeCommentDto freeCommentDto) {
-        User user = userService.getUserByUserId(freeCommentDto.getFreeCmdUser());
+    public Response<FreeCmtResponseDto> freeCommentSaved(@RequestBody FreeCommentDto freeCommentDto, Principal principal) {
+        String loginUser = principal.getName();
+        User user = userService.getUserByUserId(loginUser);
         FreePost freePost = freePostService.getPostByFreeId(freeCommentDto.getFreeId());
         FreeComment freeComment = FreeComment.createFreeCmd(freeCommentDto, user, freePost);
 
