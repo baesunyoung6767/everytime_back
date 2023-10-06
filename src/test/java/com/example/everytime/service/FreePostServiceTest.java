@@ -49,7 +49,7 @@ public class FreePostServiceTest {
         updateFreeDto.setFreeTitle("제목 수정합니다");
         updateFreeDto.setFreeContent("내용 수정합니다");
 
-        FreePost updatedFreePost = freePostService.updateFreePost(savedFreePost.getFreeId(), updateFreeDto);
+        FreePost updatedFreePost = freePostService.updateFreePost(savedFreePost.getFreeId(), updateFreeDto, "bae0000");
 
         Assertions.assertEquals(updatedFreePost.getFreeTitle(), updateFreeDto.getFreeTitle());
     }
@@ -59,7 +59,7 @@ public class FreePostServiceTest {
     public void deleteFreePost() {
         FreePost newFreePost = createFreePost();
         FreePost savedFreePost = freePostService.saveFreePost(newFreePost);
-        freePostService.deleteFreePost(savedFreePost.getFreeId());
+        freePostService.deleteFreePost(savedFreePost.getFreeId(), "bae0000");
     }
 
     @Test

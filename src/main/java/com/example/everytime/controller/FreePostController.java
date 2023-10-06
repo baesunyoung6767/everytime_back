@@ -35,15 +35,17 @@ public class FreePostController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PatchMapping("/{post_id}")
-    public Response<FreeUpdateResponseDto> freePostUpdate(@PathVariable int post_id, @RequestBody UpdateFreeDto updateFreeDto) {
-        FreePost updateFreePost = freePostService.updateFreePost(post_id, updateFreeDto);
+    public Response<FreeUpdateResponseDto> freePostUpdate(@PathVariable int post_id, @RequestBody UpdateFreeDto updateFreeDto, Principal principal) {
+        String loginUser = principal.getName();
+        FreePost updateFreePost = freePostService.updateFreePost(post_id, updateFreeDto,loginUser);
         return Response.success(new FreeUpdateResponseDto(updateFreePost.getFreeId(), updateFreePost.getFreeTitle(), updateFreePost.getFreeContent()));
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @DeleteMapping("/{post_id}")
-    public Response<FreeDelResponseDto> freePostDelete(@PathVariable int post_id) {
-        freePostService.deleteFreePost(post_id);
+    public Response<FreeDelResponseDto> freePostDelete(@PathVariable int post_id, Principal principal) {
+        String loginUser = principal.getName();
+        freePostService.deleteFreePost(post_id, loginUser);
         return Response.success(new FreeDelResponseDto(post_id));
     }
 

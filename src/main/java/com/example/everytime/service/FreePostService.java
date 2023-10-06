@@ -2,6 +2,7 @@ package com.example.everytime.service;
 
 import com.example.everytime.DTO.FreePost.UpdateFreeDto;
 import com.example.everytime.entity.FreePost;
+import com.example.everytime.entity.User;
 import com.example.everytime.exception.AppException;
 import com.example.everytime.exception.ErrorCode;
 import com.example.everytime.repository.FreePostRepository;
@@ -22,20 +23,25 @@ import java.util.List;
 public class FreePostService {
     private final FreePostRepository freePostRepository;
 
+    private final UserService userService;
+
     @Transactional
     public FreePost saveFreePost(FreePost freePost) {
         return freePostRepository.save(freePost);
     }
 
     @Transactional
-    public FreePost updateFreePost(int updateId, UpdateFreeDto updateFreeDto) {
+    public FreePost updateFreePost(int updateId, UpdateFreeDto updateFreeDto, String loginUser) {
         FreePost freePost = freePostRepository.findByFreeId(updateId);
+        checkLoginEqualPostUser(freePost, loginUser);
         FreePost updatePost = FreePost.updateFreePost(freePost, updateFreeDto);
         return freePostRepository.save(updatePost);
     }
 
     @Transactional
-    public void deleteFreePost(int freeId) {
+    public void deleteFreePost(int freeId, String loginUser) {
+        FreePost freePost = freePostRepository.findByFreeId(freeId);
+        checkLoginEqualPostUser(freePost, loginUser);
         freePostRepository.deleteById(freeId);
     }
 
@@ -60,5 +66,12 @@ public class FreePostService {
 
     public List<FreePost> getFreePostTitle(String freeTitle) {
         return freePostRepository.findByFreeTitleContaining(freeTitle);
+    }
+
+    public void checkLoginEqualPostUser(FreePost freePost, String loginUser) {
+        User findUser = userService.getUserByUserId(loginUser);
+        if(!freePost.getUser().equals(findUser)) {
+            throw new AppException(ErrorCode.USER_NOT_MATCH);
+        }
     }
 }
