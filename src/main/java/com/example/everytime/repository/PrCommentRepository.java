@@ -8,4 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PrCommentRepository extends JpaRepository<PrComment, Integer> {
     Page<PrComment> findByPrId(PrPost prId, Pageable pageable);
+    PrComment findByPrCmd(int prCmd);
 }

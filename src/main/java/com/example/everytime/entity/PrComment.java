@@ -1,5 +1,6 @@
 package com.example.everytime.entity;
 
+import com.example.everytime.DTO.PrPost.PrCmtUpdateDto;
 import com.example.everytime.DTO.PrPost.PrCommentDto;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,6 +37,11 @@ public class PrComment {
         prComment.setPrUser(user);
         prComment.setPrCmtContent(prCommentDto.getPrCmtContent());
         prComment.setPrCmdDate(LocalDateTime.now());
+        return prComment;
+    }
+
+    public static PrComment updatePrComment(PrComment prComment, PrCmtUpdateDto prCmtUpdateDto) {
+        prComment.setPrCmtContent(prCmtUpdateDto.getPrCmtContent());
         return prComment;
     }
 }
