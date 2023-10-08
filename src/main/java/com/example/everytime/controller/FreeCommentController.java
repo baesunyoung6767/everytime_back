@@ -50,13 +50,15 @@ public class FreeCommentController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @DeleteMapping("/comment/{comment_id}")
-    public void deleteFreeComment( @PathVariable int comment_id) {
-        freeCommentService.deletedFreeComment(comment_id);
+    public void deleteFreeComment(@PathVariable int comment_id, Principal principal) {
+        String loginUser = principal.getName();
+        freeCommentService.deletedFreeComment(comment_id, loginUser);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PatchMapping("/comment/{comment_id}")
-    public FreeComment updateFreeComment(@PathVariable int comment_id, @RequestBody UpdateFreeCommentDto updateFreeCommentDto) {
-        return freeCommentService.updatedFreeComment(comment_id, updateFreeCommentDto);
+    public FreeComment updateFreeComment(@PathVariable int comment_id, @RequestBody UpdateFreeCommentDto updateFreeCommentDto, Principal principal) {
+        String loginUser = principal.getName();
+        return freeCommentService.updatedFreeComment(comment_id, updateFreeCommentDto, loginUser);
     }
 }

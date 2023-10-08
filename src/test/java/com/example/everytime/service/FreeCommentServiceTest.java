@@ -47,7 +47,7 @@ public class FreeCommentServiceTest {
         UpdateFreeCommentDto updateFreeCommentDto = new UpdateFreeCommentDto();
         updateFreeCommentDto.setUpdateContent("댓글 수정합니다.");
 
-        FreeComment updateFreeComment = freeCommentService.updatedFreeComment(savedFreeComment.getFreeCmd(), updateFreeCommentDto);
+        FreeComment updateFreeComment = freeCommentService.updatedFreeComment(savedFreeComment.getFreeCmd(), updateFreeCommentDto, "bae0000");
 
         Assertions.assertEquals(updateFreeCommentDto.getUpdateContent(), updateFreeComment.getFreeCmdContent());
     }
@@ -58,6 +58,6 @@ public class FreeCommentServiceTest {
     public void deleteFreePost(){
         FreeComment testFreeComment = createFreeComment();
         FreeComment savedFreeComment = freeCommentService.savedFreeComment(testFreeComment);
-        freeCommentService.deletedFreeComment(savedFreeComment.getFreeCmd());
+        freeCommentService.deletedFreeComment(savedFreeComment.getFreeCmd(), "bae0000");
     }
 }

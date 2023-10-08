@@ -49,16 +49,18 @@ public class PrCommentController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PatchMapping("/comment/{comment_id}")
-    public Response<Integer> prCommentUpdated(@PathVariable int comment_id, @RequestBody PrCmtUpdateDto prCmtUpdateDto) {
-        PrComment updatedComment = prCommentService.prCommentUpdated(comment_id, prCmtUpdateDto);
+    public Response<Integer> prCommentUpdated(@PathVariable int comment_id, @RequestBody PrCmtUpdateDto prCmtUpdateDto, Principal principal) {
+        String loginUser = principal.getName();
+        PrComment updatedComment = prCommentService.prCommentUpdated(comment_id, prCmtUpdateDto, loginUser);
         log.info("홍보게시글 댓글이 성공적으로 수정되었습니다. 댓글 아이디 : " + updatedComment.getPrCmd());
         return Response.success(updatedComment.getPrCmd());
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @DeleteMapping("/comment/{comment_id}")
-    public Response<Integer> prCommentDelete(@PathVariable int comment_id) {
-        PrComment deletedComment = prCommentService.prCommentDeleted(comment_id);
+    public Response<Integer> prCommentDelete(@PathVariable int comment_id, Principal principal) {
+        String loginUser = principal.getName();
+        PrComment deletedComment = prCommentService.prCommentDeleted(comment_id, loginUser);
         log.info("홍보게시글 댓글이 성공적으로 삭제되었습니다. 댓글 아이디 : " + deletedComment.getPrCmd());
         return Response.success(deletedComment.getPrCmd());
     }

@@ -3,6 +3,9 @@ package com.example.everytime.service;
 import com.example.everytime.DTO.PrPost.PrCmtUpdateDto;
 import com.example.everytime.entity.PrComment;
 import com.example.everytime.entity.PrPost;
+import com.example.everytime.entity.User;
+import com.example.everytime.exception.AppException;
+import com.example.everytime.exception.ErrorCode;
 import com.example.everytime.repository.PrCommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class PrCommentService {
     private final PrCommentRepository prCommentRepository;
+    private final UserService userService;
 
     @Transactional
     public PrComment prCommentSaved(PrComment prComment) {
@@ -28,18 +32,25 @@ public class PrCommentService {
     }
 
     @Transactional
-    public PrComment prCommentUpdated(int prCommentId, PrCmtUpdateDto prCmtUpdateDto) {
+    public PrComment prCommentUpdated(int prCommentId, PrCmtUpdateDto prCmtUpdateDto, String loginUser) {
         PrComment findComment = prCommentRepository.findByPrCmd(prCommentId);
+        checkLoginEqualCmtUser(findComment, loginUser);
         PrComment updatedComment = PrComment.updatePrComment(findComment, prCmtUpdateDto);
         return this.prCommentRepository.save(updatedComment);
     }
 
     @Transactional
-    public PrComment prCommentDeleted(int prCommentId) {
+    public PrComment prCommentDeleted(int prCommentId, String loginUser) {
         PrComment findComment = prCommentRepository.findByPrCmd(prCommentId);
+        checkLoginEqualCmtUser(findComment, loginUser);
         prCommentRepository.delete(findComment);
         return findComment;
     }
 
-
+    public void checkLoginEqualCmtUser(PrComment prComment, String loginUser) {
+        User foundUser = userService.getUserByUserId(loginUser);
+        if(!prComment.getPrUser().equals(foundUser)) {
+            throw new AppException(ErrorCode.USER_NOT_MATCH);
+        }
+    }
 }

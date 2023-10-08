@@ -3,6 +3,7 @@ package com.example.everytime.service;
 import com.example.everytime.DTO.PrPost.PrUpdateRequestDto;
 import com.example.everytime.DTO.PrPost.PrUpdateResponseDto;
 import com.example.everytime.entity.PrPost;
+import com.example.everytime.entity.User;
 import com.example.everytime.exception.AppException;
 import com.example.everytime.exception.ErrorCode;
 import com.example.everytime.repository.PrPostRepository;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class PrPostService {
     private final PrPostRepository prPostRepository;
+    private final UserService userService;
 
     @Transactional
     public PrPost savedPrPost(PrPost prPost) {
@@ -30,14 +32,17 @@ public class PrPostService {
     }
 
     @Transactional
-    public PrPost updatePrPost(int updateId, PrUpdateRequestDto prUpdateRequestDto) {
+    public PrPost updatePrPost(int updateId, PrUpdateRequestDto prUpdateRequestDto, String loginUser) {
         PrPost foundPost = prPostRepository.getReferenceById(updateId);
+        checkLoginEqualPostUser(foundPost, loginUser);
         PrPost updatedPost = PrPost.updatePrPost(foundPost, prUpdateRequestDto);
         return prPostRepository.save(updatedPost);
     }
 
     @Transactional
-    public void deletePrPost(int deleteId) {
+    public void deletePrPost(int deleteId, String loginUser) {
+        PrPost foundPost = prPostRepository.findByPrId(deleteId);
+        checkLoginEqualPostUser(foundPost, loginUser);
         prPostRepository.deleteById(deleteId);
     }
 
@@ -50,5 +55,12 @@ public class PrPostService {
     public Page<PrPost> searchPageList(String searchKeyword, int page) {
         Pageable pageable = PageRequest.of(page, 10);
         return prPostRepository.findByPrTitleContaining(pageable, searchKeyword);
+    }
+
+    public void checkLoginEqualPostUser(PrPost prPost, String loginUser) {
+        User findUser = userService.getUserByUserId(loginUser);
+        if(!prPost.getPrUser().equals(findUser)) {
+            throw new AppException(ErrorCode.USER_NOT_MATCH);
+        }
     }
 }

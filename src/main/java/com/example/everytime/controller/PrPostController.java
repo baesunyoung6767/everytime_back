@@ -41,16 +41,18 @@ public class PrPostController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PatchMapping("/{post_id}")
-    public Response<PrUpdateResponseDto> prPostUpdate(@PathVariable int post_id, @RequestBody PrUpdateRequestDto prUpdateRequestDto) {
-        PrPost prPost = prPostService.updatePrPost(post_id, prUpdateRequestDto);
+    public Response<PrUpdateResponseDto> prPostUpdate(@PathVariable int post_id, @RequestBody PrUpdateRequestDto prUpdateRequestDto, Principal principal) {
+        String loginUser = principal.getName();
+        PrPost prPost = prPostService.updatePrPost(post_id, prUpdateRequestDto, loginUser);
         log.info("게시글이 수정되었습니다. prId : " + prPost.getPrId());
         return Response.success(new PrUpdateResponseDto(prPost.getPrId(), prPost.getPrTitle(), prPost.getPrContent()));
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @DeleteMapping("/{post_id}")
-    public Response<PrDelResponseDto> prPostDelete(@PathVariable int post_id) {
-        prPostService.deletePrPost(post_id);
+    public Response<PrDelResponseDto> prPostDelete(@PathVariable int post_id, Principal principal) {
+        String loginUser = principal.getName();
+        prPostService.deletePrPost(post_id, loginUser);
         log.info("게시글이 삭제되었습니다. prId : " + post_id);
         return Response.success(new PrDelResponseDto(post_id));
     }
