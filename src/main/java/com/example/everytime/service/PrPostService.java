@@ -1,7 +1,6 @@
 package com.example.everytime.service;
 
 import com.example.everytime.DTO.PrPost.PrUpdateRequestDto;
-import com.example.everytime.DTO.PrPost.PrUpdateResponseDto;
 import com.example.everytime.entity.PrPost;
 import com.example.everytime.entity.User;
 import com.example.everytime.exception.AppException;

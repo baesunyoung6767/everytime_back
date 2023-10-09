@@ -4,6 +4,7 @@ import com.example.everytime.DTO.FreePost.FreeCmtResponseDto;
 import com.example.everytime.DTO.FreePost.FreeCommentDto;
 import com.example.everytime.DTO.FreePost.UpdateFreeCommentDto;
 import com.example.everytime.constant.Response;
+
 import com.example.everytime.entity.FreeComment;
 import com.example.everytime.entity.FreePost;
 import com.example.everytime.entity.User;
@@ -17,7 +18,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 
 @RequestMapping("/free-post")
 @RestController

@@ -1,6 +1,5 @@
 package com.example.everytime.controller;
 
-import com.example.everytime.entity.FreeImage;
 import com.example.everytime.entity.FreePost;
 import com.example.everytime.service.FreeImageService;
 import com.example.everytime.service.FreePostService;
