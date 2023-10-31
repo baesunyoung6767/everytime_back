@@ -12,8 +12,9 @@ public enum ErrorCode {
     INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "bad Request"),
     FREE_NOT_FOUND(HttpStatus.NOT_FOUND, "free post not found error"),
     PR_NOT_FOUND(HttpStatus.NOT_FOUND, "pr post not found error"),
+    USER_NOT_MATCH(HttpStatus.BAD_REQUEST, "user does not match"),
 
-    USER_NOT_MATCH(HttpStatus.BAD_REQUEST, "user does not match");
+    FREE_LIKE_NOT_FOUND(HttpStatus.NOT_FOUND, "free post like not found");
 
     private HttpStatus httpStatus;
     private String message;
