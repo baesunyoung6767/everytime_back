@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 public class FreeImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "freeId")

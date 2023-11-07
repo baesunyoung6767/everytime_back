@@ -43,7 +43,7 @@ public class FreeImageService {
         return freeImageRepository.findAll();
     }
 
-    public Optional<FreeImage> findImage(int id) {
+    public FreeImage findImage(int id) {
         return freeImageRepository.findById(id);
     }
 }
