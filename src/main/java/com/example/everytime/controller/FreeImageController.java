@@ -39,10 +39,10 @@ public class FreeImageController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @GetMapping("/image/{image_id}")
-    public ResponseEntity<Resource> getFreeImage(@PathVariable int image_id) throws IOException {
+    @GetMapping("/image/{free_id}")
+    public ResponseEntity<Resource> getFreeImage(@PathVariable int free_id) throws IOException {
 
-        FreeImage freeImage = freeImageService.findImage(image_id);
+        FreeImage freeImage = freeImageService.findImageToFreeId(free_id);
         String imgPath = freeImage.getStoredFileName();
         log.info("image path : " + imgPath);
 

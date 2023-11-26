@@ -21,6 +21,7 @@ import java.util.Optional;
 @Slf4j
 public class FreeImageService {
     private final FreeImageRepository freeImageRepository;
+    private final FreePostRepository freePostRepository;
     private final FileHandler fileHandler;
 
     @Transactional
@@ -45,5 +46,10 @@ public class FreeImageService {
 
     public FreeImage findImage(int id) {
         return freeImageRepository.findById(id);
+    }
+
+    public FreeImage findImageToFreeId(int freeId) {
+        FreePost freePost = freePostRepository.findByFreeId(freeId);
+        return freeImageRepository.findByFreePost(freePost);
     }
 }
